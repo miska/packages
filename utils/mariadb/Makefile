@@ -9,7 +9,7 @@ include $(TOPDIR)/rules.mk
 
 PKG_NAME:=mariadb
 PKG_VERSION:=10.2.16
-PKG_RELEASE:=5
+PKG_RELEASE:=6
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.gz
 PKG_SOURCE_URL := \
@@ -350,7 +350,7 @@ CMAKE_OPTIONS += \
 	-DINSTALL_SUPPORTFILESDIR=share/mysql \
 	-DINSTALL_UNIX_ADDRDIR=/var/run/mysqld/mysqld.sock \
 	-DMYSQLD_USER=mariadb \
-	-DMYSQL_DATADIR=/var/lib/mysql \
+	-DMYSQL_DATADIR=/srv/mysql \
 	-DMYSQL_UNIX_ADDR=/var/run/mysqld/mysqld.sock \
 	-DSKIP_TESTS=ON \
 	-DWITH_ASAN=OFF \
