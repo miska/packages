@@ -23,10 +23,10 @@ my_group="${MY_GROUP:-mariadb}"
 
 start_service() {
 	local conf='/etc/mysql/my.cnf'
-	local datadir="$( sed -nE "s/^\s*datadir\s*=\s*('([^']*)'|\x22([^\x22]*)\x22|(.*\S))\s*$/\2\3\4/p" "$conf" )"
+	local datadir="$( $PROG --help --verbose | sed -n 's|^[[:blank:]]*datadir[[:blank:]]*/|/|p' )"
 
 	[ -d "$datadir" ] || {
-		$LOGGER "datadir '$datadir' in '$conf' does not exist"
+		$LOGGER "datadir '$datadir' does not exist"
 		return 1
 	}
 
@@ -47,6 +47,7 @@ start_service() {
 	procd_set_param command $PROG $MY_ARGS
 	procd_set_param pidfile /var/run/mysqld.pid
 	# forward stderr to logd
+	procd_set_param user $my_user
 	procd_set_param stderr 1
 
 	procd_close_instance
